@@ -15,7 +15,6 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [mostrarLista, setMostrarLista] = useState(false);
 
-  // Fetch de clientes al enfocar la pantalla
   useFocusEffect(
     React.useCallback(() => {
       axios.get('http://localhost:5000/clientes')
@@ -28,7 +27,6 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
     }, [])
   );
 
-  // Función para eliminar cliente
   function handleDeleteClient(id: number) {
     axios
       .delete(`http://localhost:5000/clientes/${id}`)
@@ -45,7 +43,6 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
     <View style={styles.container}>
       <Text style={styles.title}>Clientes</Text>
 
-      {/* Botón para mostrar/ocultar clientes */}
       <Button
         title={mostrarLista ? "Ocultar clientes" : "Ver clientes"}
         onPress={() => setMostrarLista(!mostrarLista)}
@@ -53,20 +50,12 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
 
       <View style={styles.spacing} />
 
-      {/* Botón para ver asistencias */}
-      <Button
-        title="Ver Asistencias"
-        onPress={() => navigation.navigate('Asistencias')}
-      />
-
-      {/* Botón para agregar cliente */}
       <Button
         title="Agregar Cliente"
         onPress={() => navigation.navigate('AddClient')}
         color="#28a745"
       />
 
-      {/* Mostrar lista de clientes */}
       {mostrarLista && (
         <FlatList
           data={clientes}
@@ -79,23 +68,28 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
               <Text>📦 Plan: {item.tipo_plan}</Text>
 
               <View style={styles.buttonGroup}>
-                {/* Botón para agregar asistencia */}
-                <Button
-                  title="Agregar Asistencia"
-                  onPress={() => navigation.navigate('AddAsistencia', { clienteId: item.id })}
-                  color="#007bff"
-                />
-                {/* Botón para editar cliente */}
                 <Button
                   title="Editar"
                   onPress={() => navigation.navigate('EditClient', { clientId: item.id })}
                   color="#007bff"
                 />
-                {/* Botón para eliminar cliente */}
                 <Button
                   title="Eliminar"
                   onPress={() => handleDeleteClient(item.id)}
                   color="#dc3545"
+                />
+              </View>
+
+              <View style={styles.buttonGroup}>
+                <Button
+                  title="Ver Asistencias"
+                  onPress={() => navigation.navigate('Asistencias', { clienteId: item.id })}
+                  color="#17a2b8"
+                />
+                <Button
+                  title="Agregar Asistencia"
+                  onPress={() => navigation.navigate('AddAsistencia', { clienteId: item.id })}
+                  color="#6f42c1"
                 />
               </View>
             </View>
