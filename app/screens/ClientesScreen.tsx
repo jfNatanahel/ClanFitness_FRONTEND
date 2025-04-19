@@ -17,7 +17,7 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
 
   useFocusEffect(
     React.useCallback(() => {
-      axios.get('http://localhost:5000/clientes')
+      axios.get('https://flaskrestapi-testing.onrender.com/clientes')
         .then(response => {
           setClientes(response.data);
         })
@@ -29,7 +29,7 @@ export default function ClientesScreen({ navigation }: { navigation: any }) {
 
   function handleDeleteClient(id: number) {
     axios
-      .delete(`http://localhost:5000/clientes/${id}`)
+      .delete(`https://flaskrestapi-testing.onrender.com/clientes/${id}`)
       .then(() => {
         alert('Cliente eliminado');
         setClientes(clientes.filter(client => client.id !== id));

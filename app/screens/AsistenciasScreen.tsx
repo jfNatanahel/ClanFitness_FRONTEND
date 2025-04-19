@@ -12,7 +12,7 @@ export default function AsistenciasScreen({ route }: { route: any }) {
   const [asistencias, setAsistencias] = useState<Asistencia[]>([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/asistencias/${clienteId}`)
+    axios.get(`https://flaskrestapi-testing.onrender.com/asistencias/${clienteId}`)
       .then(response => {
         setAsistencias(response.data);
       })

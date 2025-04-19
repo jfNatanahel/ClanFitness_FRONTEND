@@ -17,7 +17,7 @@ export default function AddClientScreen({ navigation }: { navigation: any }) {
     };
 
     axios
-      .post('http://localhost:5000/clientes', newClient)
+      .post('https://flaskrestapi-testing.onrender.com/clientes', newClient)
       .then(response => {
         alert('Cliente agregado exitosamente');
         navigation.goBack(); // Regresar a la pantalla de clientes

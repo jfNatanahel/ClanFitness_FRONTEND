@@ -9,7 +9,7 @@ export default function AddAsistenciaScreen({ navigation }: { navigation: any })
   const [fechaAsistencia, setFechaAsistencia] = useState('');
 
   const handleAddAsistencia = () => {
-    axios.post('http://localhost:5000/asistencias', {
+    axios.post('https://flaskrestapi-testing.onrender.com/asistencias', {
       cliente_id: Number(clienteId),
       fecha_asistencia: fechaAsistencia
     })
