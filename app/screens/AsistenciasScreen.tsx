@@ -4,15 +4,15 @@ import axios from 'axios';
 
 interface Asistencia {
   id: number;
-  cliente_id: number;
   fecha_asistencia: string;
 }
 
-export default function AsistenciasScreen() {
+export default function AsistenciasScreen({ route }: { route: any }) {
+  const { clienteId } = route.params;
   const [asistencias, setAsistencias] = useState<Asistencia[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/asistencias')
+    axios.get(`http://localhost:5000/asistencias/${clienteId}`)
       .then(response => {
         setAsistencias(response.data);
       })
@@ -23,14 +23,12 @@ export default function AsistenciasScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>📅 Lista de asistencias</Text>
+      <Text style={styles.title}>📅 Asistencias del Cliente {clienteId}</Text>
       <FlatList
         data={asistencias}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <Text>ID Asistencia: {item.id}</Text>
-            <Text>🧍 Cliente ID: {item.cliente_id}</Text>
             <Text>🗓️ Fecha: {item.fecha_asistencia}</Text>
           </View>
         )}
@@ -47,10 +45,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginBottom: 20,
+    fontWeight: 'bold',
   },
   item: {
     padding: 10,
     borderBottomWidth: 1,
     marginBottom: 10,
+    borderColor: '#ccc',
   },
 });
